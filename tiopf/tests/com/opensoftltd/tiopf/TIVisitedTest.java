@@ -9,7 +9,9 @@ public class TIVisitedTest {
 	@Test
 	public void testIterate() {
 		TIVisited lVisited = new TIVisited();
-		lVisited.Iterate(new TIVisitor());
+		TIVisitor lVisitor = new TIVisitor();
+		lVisited.Iterate(lVisitor);
+		assertTrue(lVisitor.getVisited().equals(lVisited));
 	}
 
 }
