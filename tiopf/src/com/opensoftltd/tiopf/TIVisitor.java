@@ -7,14 +7,23 @@ public class TIVisitor extends TIBaseObject {
 	private IterationStyle iterationStyle;
 	private TIVisited visited;
 
-	public TIVisitor() {		
+	public TIVisitor() {
 		continueVisiting = true;
 		setDepth(0);
 		setIterationStyle(IterationStyle.isTopDownRecurse);
 	}
-	
+
 	public void Execute(TIVisited aVisited) {
 		setVisited(aVisited);
+	}
+
+	protected boolean acceptVisitor() {
+		return true;
+	}
+
+	protected boolean acceptVisitor(TIVisited aVisited) {
+		setVisited(aVisited);
+		return acceptVisitor();
 	}
 
 	public IterationStyle getIterationStyle() {
