@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class TIObjectList extends TIObject {
 
-	Vector<TIObject> fList;
+	private Vector<TIObject> fList;
 
 	public TIObjectList() {
 		fList = new Vector<TIObject>();
