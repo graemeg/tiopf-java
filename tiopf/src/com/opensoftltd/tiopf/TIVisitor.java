@@ -13,7 +13,7 @@ public class TIVisitor extends TIBaseObject {
 		setIterationStyle(IterationStyle.isTopDownRecurse);
 	}
 
-	public void Execute(TIVisited aVisited) {
+	public void execute(TIVisited aVisited) {
 		setVisited(aVisited);
 	}
 

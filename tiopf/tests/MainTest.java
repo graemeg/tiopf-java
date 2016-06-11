@@ -29,8 +29,8 @@ public class MainTest {
 	private class VisPersonDebugToString extends TIVisitor {
 
 		@Override
-		public void Execute(TIVisited aVisited) {
-			super.Execute(aVisited);
+		public void execute(TIVisited aVisited) {
+			super.execute(aVisited);
 			if (acceptVisitor() == false) {
 				return;
 			}

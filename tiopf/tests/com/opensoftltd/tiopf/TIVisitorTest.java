@@ -21,7 +21,7 @@ public class TIVisitorTest {
 	public void visitorExecuteClassIsTheSame() {
 		TIVisited lVisited = new TIVisited();
 		TIVisitor lVisitor = new TIVisitor();
-		lVisitor.Execute(lVisited);
+		lVisitor.execute(lVisited);
 		assertTrue(lVisitor.getVisited().equals(lVisited));
 	}
 

@@ -7,7 +7,7 @@ public class TIVisited extends TIBaseObject {
 	}
 
 	public void Iterate(TIVisitor aVisitor) {
-		aVisitor.Execute(this);
+		aVisitor.execute(this);
 	}
 
 }
