@@ -1,7 +1,7 @@
-import com.opensoftltd.tiopf.TIObject;
-import com.opensoftltd.tiopf.TIObjectList;
-import com.opensoftltd.tiopf.TIVisited;
-import com.opensoftltd.tiopf.TIVisitor;
+import com.opensoft.tiopf.TIObject;
+import com.opensoft.tiopf.TIObjectList;
+import com.opensoft.tiopf.TIVisited;
+import com.opensoft.tiopf.TIVisitor;
 
 public class MainTest {
 
