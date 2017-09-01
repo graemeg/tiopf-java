@@ -12,6 +12,10 @@ public class TIVisitorManager {
 	}
 
 	public void registerVisitor(String groupName, Class<? extends TIVisitor> visitorClass) {
+		if (groupName.isEmpty())
+			throw new IllegalArgumentException("groupName can't be blank.");
+		if (visitorClass == null)
+			throw new IllegalArgumentException("visitorClass not assigned.");
 		TIVisMapping lData = new TIVisMapping();
 		lData.setCommand(groupName);
 		lData.setVisitorClass(visitorClass);
