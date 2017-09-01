@@ -43,11 +43,37 @@ public class TIVisitorManagerTest {
 	@Test
 	public void testRegisterVisitor() {
 		TestVisitorManager vm = new TestVisitorManager();
-		assertEquals(0, vm.getVisitorMappingList().size());
+		assertEquals("Failed on 1", 0, vm.getVisitorMappingList().size());
 		vm.registerVisitor("test", TestVisitorManagerRegisterVisitor.class);
-		assertEquals(1, vm.getVisitorMappingList().size());
+		assertEquals("Failed on 2", 1, vm.getVisitorMappingList().size());
 		vm.unregisterVisitor("test");
-		assertEquals(0, vm.getVisitorMappingList().size());
+		assertEquals("Failed on 3", 0, vm.getVisitorMappingList().size());
+
+		vm.registerVisitor("test", TestVisitorManagerRegisterVisitor.class);
+		assertEquals("Failed on 4", 1, vm.getVisitorMappingList().size());
+		vm.unregisterVisitor("TEST");
+		assertEquals("Failed on 5", 0, vm.getVisitorMappingList().size());
+	}
+
+	@Test
+	public void testRegisterVisitor_with_errors() {
+		TestVisitorManager vm = new TestVisitorManager();
+		try {
+			// groupName cannot be empty
+			vm.registerVisitor("", TestVisitorManagerRegisterVisitor.class);
+			fail("Failed on 1");
+		} catch (IllegalArgumentException e) {
+			// do nothing as it was a success
+		}
+		assertEquals("Failed on 2", 0, vm.getVisitorMappingList().size());
+		try {
+			// visitorClass cannot be null
+			vm.registerVisitor("test", null);
+			fail("Failed on 3");
+		} catch (IllegalArgumentException e) {
+			// do nothing as it was a success
+		}
+		assertEquals("Failed on 4", 0, vm.getVisitorMappingList().size());
 	}
 
 	@Test
@@ -59,13 +85,35 @@ public class TIVisitorManagerTest {
 		assertNotNull(vm.findVisitorMapping("test"));
 		assertNotNull(vm.findVisitorMapping("test1"));
 		assertNotNull(vm.findVisitorMapping("test2"));
-		assertNull(vm.findVisitorMapping("TEST2")); // to show that case sensitive matching is used
+		assertNotNull(vm.findVisitorMapping("TEST2")); // to show that case insensitive matching is used
 		assertNull(vm.findVisitorMapping("Graeme"));
 	}
 
-	// @Test
+	@Test
 	public void testUnregisterVisitor() {
-		fail("Not yet implemented");
+		TestVisitorManager vm = new TestVisitorManager();
+		vm.registerVisitor("test1", TIVisitor.class);
+		vm.registerVisitor("test2", TIVisitor.class);
+		assertEquals("Failed on 1", 2, vm.getVisitorMappingList().size());
+		vm.unregisterVisitor("test1");
+		assertEquals("Failed on 2", 1, vm.getVisitorMappingList().size());
+		vm.unregisterVisitor("TEST2"); // to show that case insensitive match is used
+		assertEquals("Failed on 3", 0, vm.getVisitorMappingList().size());
+	}
+
+	@Test
+	public void testUnregisterVisitor_with_errors() {
+		TestVisitorManager vm = new TestVisitorManager();
+		vm.registerVisitor("test1", TIVisitor.class);
+		vm.registerVisitor("test2", TIVisitor.class);
+		assertEquals(2, vm.getVisitorMappingList().size());
+		try {
+			vm.unregisterVisitor("Graeme");
+			fail("Failed on 1");
+		} catch (RuntimeException e) {
+			// do nothing - it worked as it should have
+		}
+		assertEquals("Failed on 2", 2, vm.getVisitorMappingList().size());
 	}
 
 	// @Test

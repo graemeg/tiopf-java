@@ -12,31 +12,33 @@ public class TIVisitorManager {
 	}
 
 	public void registerVisitor(String groupName, Class<? extends TIVisitor> visitorClass) {
-		if (groupName.isEmpty())
-			throw new IllegalArgumentException("groupName can't be blank.");
+		if ((groupName == null) || groupName.isEmpty())
+			throw new IllegalArgumentException("groupName is empty or not assigned.");
 		if (visitorClass == null)
-			throw new IllegalArgumentException("visitorClass not assigned.");
+			throw new IllegalArgumentException("visitorClass parameter is not assigned.");
 		TIVisMapping lData = new TIVisMapping();
-		lData.setCommand(groupName);
+		lData.setCommand(groupName.toUpperCase());
 		lData.setVisitorClass(visitorClass);
 		visitorMappingList.add(lData);
 	}
 
 	public void unregisterVisitor(String groupName) {
-		if (groupName.isEmpty())
+		if ((groupName == null) || groupName.isEmpty())
 			throw new IllegalArgumentException("groupName is empty or not assigned.");
 		TIVisMapping visitorMapping = findVisitorMapping(groupName);
 		if (visitorMapping == null) {
-			throw new RuntimeException("Request to Unregister visitor group that's not registered <" + groupName + ">");
+			throw new RuntimeException("Request to unregister groupName that's not registered <" + groupName + ">");
 		}
 		visitorMappingList.remove(visitorMapping);
 	}
 
 	protected TIVisMapping findVisitorMapping(String groupName) {
+		if ((groupName == null) || groupName.isEmpty())
+			throw new IllegalArgumentException("groupName is empty or not assigned.");
 		Iterator<TIVisMapping> itr = visitorMappingList.iterator();
 		while (itr.hasNext()) {
 			TIVisMapping lData = itr.next();
-			if (lData.getCommand().equals(groupName)) {
+			if (lData.getCommand().equals(groupName.toUpperCase())) {
 				return lData;
 			}
 		}
@@ -44,11 +46,15 @@ public class TIVisitorManager {
 	}
 
 	public void execute(String groupName, TIVisited visited) {
+		if ((groupName == null) || groupName.isEmpty())
+			throw new IllegalArgumentException("groupName is empty or not assigned.");
+		if (visited == null)
+			throw new IllegalArgumentException("visited parameter is not assigned.");
 		TIVisitor lVisitor = null;
 		Iterator<TIVisMapping> iterator = visitorMappingList.iterator();
 		if (iterator.hasNext()) {
 			TIVisMapping lMapping = iterator.next();
-			if (lMapping.getCommand().equalsIgnoreCase(groupName)) {
+			if (lMapping.getCommand().equals(groupName.toUpperCase())) {
 				try {
 					lVisitor = lMapping.getVisitorClass().newInstance();
 					lVisitor.execute(visited);
