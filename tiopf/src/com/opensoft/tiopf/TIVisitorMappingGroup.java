@@ -1,11 +1,11 @@
 package com.opensoft.tiopf;
 
-public class TIVisMapping {
+public class TIVisitorMappingGroup {
 
-	private String command;
+	private String GroupName;
 	private Class<? extends TIVisitor> visitorClass;
 
-	public TIVisMapping() {
+	public TIVisitorMappingGroup() {
 	}
 
 	public Class<? extends TIVisitor> getVisitorClass() {
@@ -17,11 +17,11 @@ public class TIVisMapping {
 	}
 
 	public String getCommand() {
-		return command;
+		return GroupName;
 	}
 
 	public void setCommand(String command) {
-		this.command = command;
+		this.GroupName = command;
 	}
 
 }

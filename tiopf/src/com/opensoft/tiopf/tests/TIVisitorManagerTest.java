@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.opensoft.tiopf.TIVisMapping;
+import com.opensoft.tiopf.TIVisitorMappingGroup;
 import com.opensoft.tiopf.TIVisitor;
 import com.opensoft.tiopf.TIVisitorManager;
 
@@ -23,11 +23,11 @@ public class TIVisitorManagerTest {
 	private class TestVisitorManager extends TIVisitorManager {
 
 		@Override
-		public TIVisMapping findVisitorMapping(String groupName) {
-			return super.findVisitorMapping(groupName);
+		public TIVisitorMappingGroup findVisitorMappingGroup(String groupName) {
+			return super.findVisitorMappingGroup(groupName);
 		}
 
-		public Vector<TIVisMapping> getVisitorMappingList() {
+		public Vector<TIVisitorMappingGroup> getVisitorMappingList() {
 			return visitorMappingList;
 		}
 	}
@@ -61,7 +61,7 @@ public class TIVisitorManagerTest {
 		try {
 			// groupName cannot be empty
 			vm.registerVisitor("", TestVisitorManagerRegisterVisitor.class);
-			fail("Failed on 1");
+			fail("Failed on 1 - exception not raised");
 		} catch (IllegalArgumentException e) {
 			// do nothing as it was a success
 		}
@@ -69,11 +69,23 @@ public class TIVisitorManagerTest {
 		try {
 			// visitorClass cannot be null
 			vm.registerVisitor("test", null);
-			fail("Failed on 3");
+			fail("Failed on 3 - exception not raised");
 		} catch (IllegalArgumentException e) {
 			// do nothing as it was a success
 		}
 		assertEquals("Failed on 4", 0, vm.getVisitorMappingList().size());
+	}
+
+	@Test
+	public void testRegisterVisitor_with_duplicates() {
+		TestVisitorManager vm = new TestVisitorManager();
+		assertEquals("Failed on 1", 0, vm.getVisitorMappingList().size());
+		vm.registerVisitor("test", TestVisitorManagerRegisterVisitor.class);
+		assertEquals("Failed on 2", 1, vm.getVisitorMappingList().size());
+
+		// should fail as it is a duplicate
+		vm.registerVisitor("test", TestVisitorManagerRegisterVisitor.class);
+		assertEquals("Failed on 3", 1, vm.getVisitorMappingList().size());
 	}
 
 	@Test
@@ -82,11 +94,11 @@ public class TIVisitorManagerTest {
 		vm.registerVisitor("test", TIVisitor.class);
 		vm.registerVisitor("test1", TIVisitor.class);
 		vm.registerVisitor("test2", TIVisitor.class);
-		assertNotNull(vm.findVisitorMapping("test"));
-		assertNotNull(vm.findVisitorMapping("test1"));
-		assertNotNull(vm.findVisitorMapping("test2"));
-		assertNotNull(vm.findVisitorMapping("TEST2")); // to show that case insensitive matching is used
-		assertNull(vm.findVisitorMapping("Graeme"));
+		assertNotNull(vm.findVisitorMappingGroup("test"));
+		assertNotNull(vm.findVisitorMappingGroup("test1"));
+		assertNotNull(vm.findVisitorMappingGroup("test2"));
+		assertNotNull(vm.findVisitorMappingGroup("TEST2")); // to show that case insensitive matching is used
+		assertNull(vm.findVisitorMappingGroup("Graeme"));
 	}
 
 	@Test
@@ -109,7 +121,7 @@ public class TIVisitorManagerTest {
 		assertEquals(2, vm.getVisitorMappingList().size());
 		try {
 			vm.unregisterVisitor("Graeme");
-			fail("Failed on 1");
+			fail("Failed on 1 - exception not raised");
 		} catch (RuntimeException e) {
 			// do nothing - it worked as it should have
 		}

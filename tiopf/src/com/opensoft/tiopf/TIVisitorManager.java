@@ -3,9 +3,15 @@ package com.opensoft.tiopf;
 import java.util.Iterator;
 import java.util.Vector;
 
+/**
+ * Groups visitors together so they can be passed over a graph of objects together.
+ *
+ * @author Graeme Geldenhuys
+ * @since tiOPF 0.1
+ */
 public class TIVisitorManager {
 
-	protected Vector<TIVisMapping> visitorMappingList;
+	protected Vector<TIVisitorMappingGroup> visitorMappingList;
 
 	public TIVisitorManager() {
 		this.visitorMappingList = new Vector<>();
@@ -16,28 +22,34 @@ public class TIVisitorManager {
 			throw new IllegalArgumentException("groupName is empty or not assigned.");
 		if (visitorClass == null)
 			throw new IllegalArgumentException("visitorClass parameter is not assigned.");
-		TIVisMapping lData = new TIVisMapping();
-		lData.setCommand(groupName.toUpperCase());
-		lData.setVisitorClass(visitorClass);
-		visitorMappingList.add(lData);
+
+		TIVisitorMappingGroup lVisitorMappingGroup;
+		lVisitorMappingGroup = findVisitorMappingGroup(groupName);
+		if (lVisitorMappingGroup == null) {
+			lVisitorMappingGroup = new TIVisitorMappingGroup();
+			lVisitorMappingGroup.setCommand(groupName.toUpperCase());
+			lVisitorMappingGroup.setVisitorClass(visitorClass);
+			visitorMappingList.add(lVisitorMappingGroup);
+		}
+		// lData.add(visitorClass);
 	}
 
 	public void unregisterVisitor(String groupName) {
 		if ((groupName == null) || groupName.isEmpty())
 			throw new IllegalArgumentException("groupName is empty or not assigned.");
-		TIVisMapping visitorMapping = findVisitorMapping(groupName);
+		TIVisitorMappingGroup visitorMapping = findVisitorMappingGroup(groupName);
 		if (visitorMapping == null) {
 			throw new RuntimeException("Request to unregister groupName that's not registered <" + groupName + ">");
 		}
 		visitorMappingList.remove(visitorMapping);
 	}
 
-	protected TIVisMapping findVisitorMapping(String groupName) {
+	protected TIVisitorMappingGroup findVisitorMappingGroup(String groupName) {
 		if ((groupName == null) || groupName.isEmpty())
 			throw new IllegalArgumentException("groupName is empty or not assigned.");
-		Iterator<TIVisMapping> itr = visitorMappingList.iterator();
+		Iterator<TIVisitorMappingGroup> itr = visitorMappingList.iterator();
 		while (itr.hasNext()) {
-			TIVisMapping lData = itr.next();
+			TIVisitorMappingGroup lData = itr.next();
 			if (lData.getCommand().equals(groupName.toUpperCase())) {
 				return lData;
 			}
@@ -51,9 +63,9 @@ public class TIVisitorManager {
 		if (visited == null)
 			throw new IllegalArgumentException("visited parameter is not assigned.");
 		TIVisitor lVisitor = null;
-		Iterator<TIVisMapping> iterator = visitorMappingList.iterator();
+		Iterator<TIVisitorMappingGroup> iterator = visitorMappingList.iterator();
 		if (iterator.hasNext()) {
-			TIVisMapping lMapping = iterator.next();
+			TIVisitorMappingGroup lMapping = iterator.next();
 			if (lMapping.getCommand().equals(groupName.toUpperCase())) {
 				try {
 					lVisitor = lMapping.getVisitorClass().newInstance();
