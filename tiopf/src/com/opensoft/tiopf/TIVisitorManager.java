@@ -22,6 +22,27 @@ public class TIVisitorManager {
 		visitorMappingList.add(lData);
 	}
 
+	public void unregisterVisitor(String groupName) {
+		if (groupName.isEmpty())
+			throw new IllegalArgumentException("groupName is empty or not assigned.");
+		TIVisMapping visitorMapping = findVisitorMapping(groupName);
+		if (visitorMapping == null) {
+			throw new RuntimeException("Request to Unregister visitor group that's not registered <" + groupName + ">");
+		}
+		visitorMappingList.remove(visitorMapping);
+	}
+
+	protected TIVisMapping findVisitorMapping(String groupName) {
+		Iterator<TIVisMapping> itr = visitorMappingList.iterator();
+		while (itr.hasNext()) {
+			TIVisMapping lData = itr.next();
+			if (lData.getCommand().equals(groupName)) {
+				return lData;
+			}
+		}
+		return null;
+	}
+
 	public void execute(String groupName, TIVisited visited) {
 		TIVisitor lVisitor = null;
 		Iterator<TIVisMapping> iterator = visitorMappingList.iterator();
