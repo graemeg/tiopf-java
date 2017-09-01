@@ -5,22 +5,22 @@ import java.util.Vector;
 
 public class TIVisitorManager {
 
-	private Vector<TIVisMapping> fList;
+	protected Vector<TIVisMapping> visitorMappingList;
 
 	public TIVisitorManager() {
-		fList = new Vector<TIVisMapping>();
+		this.visitorMappingList = new Vector<>();
 	}
 
 	public void registerVisitor(String groupName, Class<? extends TIVisitor> visitorClass) {
 		TIVisMapping lData = new TIVisMapping();
 		lData.setCommand(groupName);
 		lData.setVisitorClass(visitorClass);
-		fList.add(lData);
+		visitorMappingList.add(lData);
 	}
 
 	public void execute(String groupName, TIVisited visited) {
 		TIVisitor lVisitor = null;
-		Iterator<TIVisMapping> iterator = fList.iterator();
+		Iterator<TIVisMapping> iterator = visitorMappingList.iterator();
 		if (iterator.hasNext()) {
 			TIVisMapping lMapping = iterator.next();
 			if (lMapping.getCommand().equalsIgnoreCase(groupName)) {
