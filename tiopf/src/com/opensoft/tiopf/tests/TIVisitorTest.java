@@ -11,6 +11,15 @@ import com.opensoft.tiopf.TIVisitor;
 
 public class TIVisitorTest {
 
+	private class TIVisitorTestHelperClass extends TIVisitor {
+
+		@Override
+		protected boolean acceptVisitor() {
+			return super.acceptVisitor();
+		}
+
+	}
+
 	@Test
 	public void visitorDepthIsZero() {
 		assertEquals(0, new TIVisitor().getDepth());
@@ -31,7 +40,7 @@ public class TIVisitorTest {
 
 	@Test
 	public void acceptVisitorDefaultsToTrue() {
-		TIVisitor lVisitor = new TIVisitor();
+		TIVisitorTestHelperClass lVisitor = new TIVisitorTestHelperClass();
 		assertEquals(true, lVisitor.acceptVisitor());
 	}
 
