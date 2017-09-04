@@ -1,4 +1,3 @@
-package com.opensoft.tiopf.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,9 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.opensoft.tiopf.TIVisitorMappingGroup;
 import com.opensoft.tiopf.TIVisitor;
 import com.opensoft.tiopf.TIVisitorManager;
+import com.opensoft.tiopf.TIVisitorMappingGroup;
 
 public class TIVisitorManagerTest {
 
