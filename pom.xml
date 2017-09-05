@@ -4,12 +4,13 @@
     <artifactId>tiopf</artifactId>
     <packaging>jar</packaging>
     <version>0.1-SNAPSHOT</version>
-    <name>banking-app</name>
-    <description>This project is Java implementation of the Object Pascal tiOPF framework.</description>
+    <name>tiOPF</name>
+    <description>This project is a Java implementation of the original Object Pascal based tiOPF framework.</description>
     <organization>
         <name>Opensoft Ltd</name>
+        <url>http://www.opensoft-ltd.com</url>
     </organization>
-    <url>http://www.opensoft-ltd.com</url>
+    <url>http://www.opensoft-ltd.com/tiopf/</url>
     <licenses>
         <license>
             <name>3-Clause BSD Licence</name>
@@ -81,6 +82,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.3</version>
             </plugin>
         </plugins>
     </build>
