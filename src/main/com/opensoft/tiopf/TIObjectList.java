@@ -5,13 +5,27 @@ import java.util.Vector;
 public class TIObjectList extends TIObject {
 
 	private Vector<TIObject> fList;
+	private TIObject itemOwner = null;
+	private boolean AutoSetItemOwner = true;
+
+	public TIObject getItemOwner() {
+		return itemOwner;
+	}
+
+	public void setItemOwner(TIObject itemOwner) {
+		this.itemOwner = itemOwner;
+	}
 
 	public TIObjectList() {
-		fList = new Vector<TIObject>();
+		fList = new Vector<>();
+		itemOwner = this;
 	}
 
 	public void add(TIObject aData) {
+		if (AutoSetItemOwner)
+			aData.setOwner(itemOwner);
 		fList.add(aData);
+		// TODO: Call notifyObservers() here
 	}
 
 	@Override
@@ -23,12 +37,20 @@ public class TIObjectList extends TIObject {
 		}
 	}
 
-	public int Count() {
+	public int getCount() {
 		return fList.size();
 	}
 
 	public int Size() {
 		return fList.size();
+	}
+
+	public boolean getAutoSetItemOwner() {
+		return AutoSetItemOwner;
+	}
+
+	public void setAutoSetItemOwner(boolean Value) {
+		AutoSetItemOwner = Value;
 	}
 
 }
