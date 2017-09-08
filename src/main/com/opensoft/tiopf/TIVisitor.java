@@ -13,10 +13,6 @@ public class TIVisitor extends TIBaseObject {
 		setIterationStyle(IterationStyle.isTopDownRecurse);
 	}
 
-	public void execute(TIVisited aVisited) {
-		setVisited(aVisited);
-	}
-
 	protected boolean acceptVisitor() {
 		return true;
 	}
@@ -24,6 +20,22 @@ public class TIVisitor extends TIBaseObject {
 	protected boolean acceptVisitor(TIVisited aVisited) {
 		setVisited(aVisited);
 		return acceptVisitor();
+	}
+
+	protected TIVisited getVisited() {
+		return visited;
+	}
+
+	protected void setVisited(TIVisited visited) {
+		this.visited = visited;
+	}
+
+	protected boolean visitBranch(TIVisited derivedParent, TIVisited visited) {
+		return true;
+	}
+
+	public void execute(TIVisited aVisited) {
+		setVisited(aVisited);
 	}
 
 	public IterationStyle getIterationStyle() {
@@ -42,12 +54,8 @@ public class TIVisitor extends TIBaseObject {
 		this.depth = depth;
 	}
 
-	public TIVisited getVisited() {
-		return visited;
-	}
-
-	public void setVisited(TIVisited visited) {
-		this.visited = visited;
+	public static Class<? extends TIVisitorController> VisitorControllerClass() {
+		return TIVisitorController.class;
 	}
 
 }
