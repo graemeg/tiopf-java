@@ -1,6 +1,6 @@
 package com.opensoft.tiopf;
 
-public class TIVisitorMappingGroup {
+public class TIVisitorMappingGroup extends TIBaseObject {
 
 	private String GroupName;
 	private Class<? extends TIVisitor> visitorClass;
