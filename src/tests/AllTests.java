@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 
 		// package1
-		TIVisitorTest.class, TIVisitedTest.class, TIVisitorManagerTest.class
+		TIObjectListTest.class, TIVisitorTest.class, TIVisitedTest.class, TIVisitorManagerTest.class
 
 })
 public final class AllTests {
