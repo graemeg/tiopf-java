@@ -57,11 +57,8 @@ public class TIVisitorManager {
 		return null;
 	}
 
-	public void execute(String groupName, TIVisited visited) {
-		if ((groupName == null) || groupName.isEmpty())
-			throw new IllegalArgumentException("groupName is empty or not assigned.");
-		if (visited == null)
-			throw new IllegalArgumentException("visited parameter is not assigned.");
+	protected void processVisitors(String groupName, TIVisited visited, TIVisitorControllerConfig visitorControllerConfig) {
+		// TODO Complete implementation using VisitorControllerConfig, VisitorMappingGroup etc
 		TIVisitor lVisitor = null;
 		Iterator<TIVisitorMappingGroup> iterator = visitorMappingList.iterator();
 		if (iterator.hasNext()) {
@@ -76,5 +73,15 @@ public class TIVisitorManager {
 				}
 			}
 		}
+	}
+
+	public void execute(String groupName, TIVisited visited) {
+		if ((groupName == null) || groupName.isEmpty())
+			throw new IllegalArgumentException("groupName is empty or not assigned.");
+		if (visited == null)
+			throw new IllegalArgumentException("visited parameter is not assigned.");
+
+		TIVisitorControllerConfig visitorControllerConfig = new TIVisitorControllerConfig(this);
+		processVisitors(groupName, visited, visitorControllerConfig);
 	}
 }
