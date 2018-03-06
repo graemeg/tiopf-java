@@ -5,7 +5,7 @@
     <packaging>jar</packaging>
     <version>0.1-SNAPSHOT</version>
     <name>tiOPF</name>
-    <description>This project is a Java implementation of the original Object Pascal based tiOPF framework.</description>
+    <description>This project is a Java implementation of the tiOPF Object Persistence Framework (originally implemented in Object Pascal).</description>
     <organization>
         <name>Opensoft Ltd</name>
         <url>http://www.opensoft-ltd.com</url>
