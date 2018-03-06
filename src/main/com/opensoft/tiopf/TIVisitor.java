@@ -22,7 +22,7 @@ public class TIVisitor extends TIBaseObject {
 		return acceptVisitor();
 	}
 
-	protected TIVisited getVisited() {
+	public TIVisited getVisited() {
 		return visited;
 	}
 
