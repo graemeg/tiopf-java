@@ -3,23 +3,17 @@ package com.opensoft.tiopf;
 import java.util.Vector;
 
 /**
- * A list of TtiTouchedByVisitor
+ * A list of TITouchedByVisitor
  *
  * @author Graeme Geldenhuys
  *
  */
 public class TITouchedByVisitorList extends TIBaseObject {
 
-	private TIVisitorManager visitorManager;
 	private Vector<TITouchedByVisitor> objectList;
 
-	public TIVisitorManager getVisitorManager() {
-		return visitorManager;
-	}
-
 	// the constructor
-	public TITouchedByVisitorList(TIVisitorManager visitorManager) {
-		this.visitorManager = visitorManager;
+	public TITouchedByVisitorList() {
 		// System.out.println("TITouchedByVisitorList constructor");
 		objectList = new Vector<>();
 	}

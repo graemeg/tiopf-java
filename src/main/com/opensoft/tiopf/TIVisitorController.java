@@ -9,7 +9,7 @@ public class TIVisitorController extends TIBaseObject {
 	public TIVisitorController(TIVisitorManager visitorManager, TIVisitorControllerConfig config) {
 		this.visitorManager = visitorManager;
 		this.config = config;
-		touchedByVisitorList = new TITouchedByVisitorList(this.visitorManager);
+		touchedByVisitorList = new TITouchedByVisitorList();
 	}
 
 	protected TIVisitorControllerConfig getConfig() {
