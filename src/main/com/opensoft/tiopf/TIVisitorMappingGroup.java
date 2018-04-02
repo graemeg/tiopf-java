@@ -2,26 +2,26 @@ package com.opensoft.tiopf;
 
 public class TIVisitorMappingGroup extends TIBaseObject {
 
-	private String GroupName;
-	private Class<? extends TIVisitor> visitorClass;
+	private String groupName;
+	private Class<? extends TIVisitorController> visitorClass;
 
-	public TIVisitorMappingGroup() {
+	public TIVisitorMappingGroup(String groupName, Class<? extends TIVisitorController> visitorControllerClass) {
+		super();
+		this.groupName = groupName.toUpperCase();
+		this.visitorClass = visitorControllerClass;
 	}
 
-	public Class<? extends TIVisitor> getVisitorClass() {
+	public Class<? extends TIVisitorController> getVisitorControllerClass() {
 		return visitorClass;
 	}
 
-	public void setVisitorClass(Class<? extends TIVisitor> visitorClass) {
-		this.visitorClass = visitorClass;
+	public String getGroupName() {
+		return groupName;
 	}
 
-	public String getCommand() {
-		return GroupName;
-	}
+	public void add(Class<? extends TIVisitor> visitorClass2) {
+		// TODO Auto-generated method stub
 
-	public void setCommand(String command) {
-		this.GroupName = command;
 	}
 
 }

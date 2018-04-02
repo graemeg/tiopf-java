@@ -54,7 +54,7 @@ public class TIVisitor extends TIBaseObject {
 		this.depth = depth;
 	}
 
-	public static Class<? extends TIVisitorController> VisitorControllerClass() {
+	public Class<? extends TIVisitorController> visitorControllerClass() {
 		return TIVisitorController.class;
 	}
 

@@ -21,17 +21,20 @@ public class TIVisitorManager {
 		if ((groupName == null) || groupName.isEmpty())
 			throw new IllegalArgumentException("groupName is empty or not assigned.");
 		if (visitorClass == null)
-			throw new IllegalArgumentException("visitorClass parameter is not assigned.");
+			throw new IllegalArgumentException("visitorClass is not assigned.");
 
-		TIVisitorMappingGroup lVisitorMappingGroup;
-		lVisitorMappingGroup = findVisitorMappingGroup(groupName);
+		TIVisitorMappingGroup lVisitorMappingGroup = findVisitorMappingGroup(groupName);
 		if (lVisitorMappingGroup == null) {
-			lVisitorMappingGroup = new TIVisitorMappingGroup();
-			lVisitorMappingGroup.setCommand(groupName.toUpperCase());
-			lVisitorMappingGroup.setVisitorClass(visitorClass);
-			visitorMappingList.add(lVisitorMappingGroup);
+			TIVisitor v;
+			try {
+				v = visitorClass.newInstance();
+				lVisitorMappingGroup = new TIVisitorMappingGroup(groupName, v.visitorControllerClass());
+				visitorMappingList.add(lVisitorMappingGroup);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		}
-		// lData.add(visitorClass);
+		lVisitorMappingGroup.add(visitorClass);
 	}
 
 	public void unregisterVisitor(String groupName) {
@@ -50,7 +53,7 @@ public class TIVisitorManager {
 		Iterator<TIVisitorMappingGroup> itr = visitorMappingList.iterator();
 		while (itr.hasNext()) {
 			TIVisitorMappingGroup lData = itr.next();
-			if (lData.getCommand().equals(groupName.toUpperCase())) {
+			if (lData.getGroupName().equals(groupName.toUpperCase())) {
 				return lData;
 			}
 		}
@@ -59,13 +62,18 @@ public class TIVisitorManager {
 
 	protected void processVisitors(String groupName, TIVisited visited, TIVisitorControllerConfig visitorControllerConfig) {
 		// TODO Complete implementation using VisitorControllerConfig, VisitorMappingGroup etc
+		TIVisitorMappingGroup visitorMappingGroup = findVisitorMappingGroup(groupName);
+		if (visitorMappingGroup == null)
+			throw new RuntimeException("Invalid visitor group <" + groupName + ">");
+		TIVisitorController visitorController = new visitorMappingGroup.getVisitorControllerClass(this, visitorControllerConfig);
+
 		TIVisitor lVisitor = null;
 		Iterator<TIVisitorMappingGroup> iterator = visitorMappingList.iterator();
 		if (iterator.hasNext()) {
 			TIVisitorMappingGroup lMapping = iterator.next();
-			if (lMapping.getCommand().equals(groupName.toUpperCase())) {
+			if (lMapping.getGroupName().equals(groupName.toUpperCase())) {
 				try {
-					lVisitor = lMapping.getVisitorClass().newInstance();
+					lVisitor = lMapping.getVisitorControllerClass().newInstance();
 					lVisitor.execute(visited);
 					return;
 				} catch (IllegalAccessException | InstantiationException e) {
