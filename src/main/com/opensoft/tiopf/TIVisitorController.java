@@ -20,6 +20,10 @@ public class TIVisitorController extends TIBaseObject {
 		return visitorManager;
 	}
 
+	protected void setVisitorManager(TIVisitorManager visitorManager) {
+		this.visitorManager = visitorManager;
+	}
+
 	public final TITouchedByVisitorList getTouchedByVisitorList() {
 		return touchedByVisitorList;
 	}
@@ -42,6 +46,10 @@ public class TIVisitorController extends TIBaseObject {
 
 	public void afterExecuteVisitorGroupError() {
 		// can be overridden by descendants
+	}
+
+	public void setVisitorControllerConfig(TIVisitorControllerConfig visitorControllerConfig) {
+		this.config = visitorControllerConfig;
 	}
 
 }
