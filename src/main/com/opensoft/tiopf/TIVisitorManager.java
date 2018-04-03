@@ -65,7 +65,7 @@ public class TIVisitorManager {
 		TIVisitorMappingGroup visitorMappingGroup = findVisitorMappingGroup(groupName);
 		if (visitorMappingGroup == null)
 			throw new RuntimeException("Invalid visitor group <" + groupName + ">");
-		TIVisitorController visitorController = new visitorMappingGroup.getVisitorControllerClass(this, visitorControllerConfig);
+		TIVisitorController visitorController = visitorMappingGroup.instantiateVisitorControllerClass(this, visitorControllerConfig);
 
 		TIVisitor lVisitor = null;
 		Iterator<TIVisitorMappingGroup> iterator = visitorMappingList.iterator();

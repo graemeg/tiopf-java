@@ -24,4 +24,16 @@ public class TIVisitorMappingGroup extends TIBaseObject {
 
 	}
 
+	public TIVisitorController instantiateVisitorControllerClass(TIVisitorManager tiVisitorManager,	TIVisitorControllerConfig visitorControllerConfig) {
+		try {
+			TIVisitorController ins = visitorClass.newInstance();
+			ins.setVisitorManager(tiVisitorManager);
+			ins.setVisitorControllerConfig(visitorControllerConfig);
+			return ins;
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
