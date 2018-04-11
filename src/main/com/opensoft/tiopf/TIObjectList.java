@@ -41,7 +41,7 @@ public class TIObjectList extends TIObject {
 		return fList.size();
 	}
 
-	public int Size() {
+	public int getSize() {
 		return fList.size();
 	}
 
