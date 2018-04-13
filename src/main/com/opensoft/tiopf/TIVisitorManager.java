@@ -83,11 +83,11 @@ public class TIVisitorManager {
 
 			// ******************** graeme: 2018-04-11 Start here! *************************
 			// TODO: implement the assignVisitorInstances()
-			// assignVisitorInstances(visitorMappingGroup, lVisitorList);
+			assignVisitorInstances(visitorMappingGroup, lVisitorList);
 
 			lVisitorController.beforeExecuteVisitorGroup();
 			try {
-				// ExecuteVisitors(lVisitorController, lVisitorList, visited);
+				executeVisitors(lVisitorController, lVisitorList, visited);
 				lVisitorController.afterExecuteVisitorGroup(lVisitorController.getTouchedByVisitorList());
 			} catch (Exception e) {
 				lVisitorController.afterExecuteVisitorGroupError();
@@ -105,6 +105,31 @@ public class TIVisitorManager {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	private void executeVisitors(TIVisitorController visitorController, Vector<TIVisitor> visitorList,
+			TIVisited visited) {
+		// TODO Implement me!
+		Iterator<TIVisitor> iterator = visitorList.iterator();
+		if (iterator.hasNext()) {
+			TIVisitor v = iterator.next();
+			visitorController.beforeExecuteVisitor(v);
+			try {
+				if (visited != null)
+					// TODO Implement this
+					visited.IterateAssignTouched(visitorList, visitorController.touchedByVisitorList);
+				// visited.Iterate(v);
+			} finally {
+				visitorController.afterExecuteVisitor(v);
+			}
+
+		}
+
+	}
+
+	private void assignVisitorInstances(TIVisitorMappingGroup visitorMappingGroup, Vector<TIVisitor> lVisitorList) {
+		// TODO Implement me!
 
 	}
 
