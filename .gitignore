@@ -11,7 +11,7 @@ tmp/**/*
 *~.nib
 local.properties
 .classpath
-.settings/
+#.settings/
 .idea/
 .loadpath
 
