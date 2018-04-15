@@ -6,8 +6,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- * Groups visitors together so they can be passed over a graph of objects
- * together.
+ * Groups visitors together so they can be passed over a graph of objects together.
  *
  * @author Graeme Geldenhuys
  * @since tiOPF 0.1
@@ -62,8 +61,7 @@ public class TIVisitorManager {
 		return null;
 	}
 
-	protected void processVisitors(String groupName, TIVisited visited,
-			TIVisitorControllerConfig visitorControllerConfig) {
+	protected void processVisitors(String groupName, TIVisited visited, TIVisitorControllerConfig visitorControllerConfig) {
 		// TODO Complete implementation using VisitorControllerConfig,
 		// VisitorMappingGroup etc
 		TIVisitorMappingGroup visitorMappingGroup = findVisitorMappingGroup(groupName);
@@ -108,17 +106,18 @@ public class TIVisitorManager {
 
 	}
 
-	private void executeVisitors(TIVisitorController visitorController, Vector<TIVisitor> visitorList,
-			TIVisited visited) {
+	private void executeVisitors(TIVisitorController visitorController, Vector<TIVisitor> visitorList, TIVisited visited) {
 		// TODO Implement me!
 		Iterator<TIVisitor> iterator = visitorList.iterator();
 		if (iterator.hasNext()) {
 			TIVisitor v = iterator.next();
 			visitorController.beforeExecuteVisitor(v);
 			try {
-				if (visited != null)
-					// TODO Implement this
-					visited.IterateAssignTouched(visitorList, visitorController.touchedByVisitorList);
+				if (visited != null) {
+					visited.iterateAssignTouched(v, visitorController.getTouchedByVisitorList());
+				} else {
+					v.execute(null);
+				}
 				// visited.Iterate(v);
 			} finally {
 				visitorController.afterExecuteVisitor(v);
